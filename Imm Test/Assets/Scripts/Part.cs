@@ -5,17 +5,15 @@ using UnityEngine;
 public class Part : MonoBehaviour
 {
 
-    public enum Orientation { X, MinusX, Y, MinusY, Z, MinusZ }
-
-    public Orientation orientation;
-    public Transform OriginalPos;
+    
+    public Vector3 OriginalPos;
     public Transform ExpandedPos;
     float targetExpansion = 0f;
     float currentExpansion = 0f;
      string Name;
     void Start()
     {
-        OriginalPos = this.transform;
+        OriginalPos = this.transform.localPosition;
        
     }
 
@@ -24,13 +22,15 @@ public class Part : MonoBehaviour
     {
         if(currentExpansion != targetExpansion) 
         {
-            currentExpansion += 0.01f;
+            currentExpansion += 0.025f;
 
-            this.transform.localPosition = (OriginalPos.transform.localPosition + (ExpandedPos.transform.localPosition * currentExpansion));
+            this.transform.localPosition = (OriginalPos + (ExpandedPos.transform.localPosition * currentExpansion));
         }
 
         if(currentExpansion > targetExpansion) { currentExpansion = targetExpansion; }
-        if (currentExpansion < 0) { currentExpansion = 0f; }
+
+        if(targetExpansion == 0f) { this.transform.localPosition = OriginalPos; currentExpansion = 0f;  }
+       
     }
 
    public void Transition(float amount) 
