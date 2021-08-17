@@ -6,14 +6,14 @@ public class Part : MonoBehaviour
 {
 
     
-    public Vector3 OriginalPos;
+    public Vector3 OriginalPos;     
     public Transform ExpandedPos;
     float targetExpansion = 0f;
     float currentExpansion = 0f;
-     string Name;
+    public string Name;
     void Start()
     {
-        OriginalPos = this.transform.localPosition;
+        OriginalPos = this.transform.localPosition;     //saves the original position on start
        
     }
 
@@ -22,14 +22,14 @@ public class Part : MonoBehaviour
     {
         if(currentExpansion != targetExpansion) 
         {
-            currentExpansion += 0.025f;
+            currentExpansion += 0.025f;     //gradually moves the part from it's start point to it's desination
 
             this.transform.localPosition = (OriginalPos + (ExpandedPos.transform.localPosition * currentExpansion));
         }
 
-        if(currentExpansion > targetExpansion) { currentExpansion = targetExpansion; }
+        if(currentExpansion > targetExpansion) { currentExpansion = targetExpansion; }  //prevents overshooting
 
-        if(targetExpansion == 0f) { this.transform.localPosition = OriginalPos; currentExpansion = 0f;  }
+        if(targetExpansion == 0f) { this.transform.localPosition = OriginalPos; currentExpansion = 0f;  }   //if the target has been reset, resets the object to start point
        
     }
 
